@@ -15,6 +15,8 @@ return {
   },
   opts = {
     filesystem = {
+      bind_to_cwd = true,
+      follow_current_file = { enabled = true },
       window = {
         mappings = {
           ['\\'] = 'close_window',
