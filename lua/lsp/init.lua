@@ -70,12 +70,12 @@ if vim.fn.isdirectory(lsp_configs_dir_path) then
 	for _, file in ipairs(vim.fn.readdir(lsp_configs_dir_path)) do
 		if file:match("%.lua$") and file ~= "init.lua" then
 			local server_name = vim.fn.fnamemodify(file, ':t:r')
-			local status, result = pcall(loadfile(lsp_configs_dir_path .. '/' .. file))
+			local status, result = pcall(loadfile, lsp_configs_dir_path .. '/' .. file)
 
 			if status then
-				lsp_server_configs[server_name] = result
+				lsp_server_configs[server_name] = result and result() or {}
 			else
-				vim.notify(tostring(err), vim.log.levels.ERROR)
+				vim.notify(tostring(result), vim.log.levels.ERROR)
 			end
 		end
 	end
