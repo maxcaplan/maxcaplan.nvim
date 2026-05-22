@@ -8,6 +8,7 @@ vim.pack.add({
 -- Ensure mini icons is setup
 if not MiniIcons then
 	require('mini.icons').setup()
+	MiniIcons.mock_nvim_web_devicons()
 end
 
 local blink = require('blink.cmp')
