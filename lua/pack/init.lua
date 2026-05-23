@@ -27,6 +27,11 @@ vim.api.nvim_create_autocmd('PackChanged', {
 			return
 		end
 
+		if package_name == 'nvim-treesitter' then
+			-- Update treesitter parsers
+			vim.cmd('TSUpdate')
+		end
+
 		if package_name == 'telescope-fzf-native.nvim' then
 			-- Build fzf native
 			if vim.fn.executable('make') then
