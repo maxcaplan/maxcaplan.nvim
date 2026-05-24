@@ -4,7 +4,7 @@
 vim.o.number = true
 vim.o.relativenumber = true
 
-vim.o.shiftwidth = 2
+vim.o.shiftwidth = 4
 vim.o.tabstop = 4
 
 -- Enable mouse mode
@@ -14,7 +14,9 @@ vim.o.mouse = 'a'
 vim.o.showmode = false
 
 -- Sync nvim and OS clipboard after start up
-vim.schedule(function() vim.o.clipboard = 'unnamedplus' end)
+vim.schedule(function()
+	vim.o.clipboard = 'unnamedplus'
+end)
 
 -- Enable brak indent
 vim.o.breakindent = true

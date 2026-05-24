@@ -20,11 +20,9 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
 		-- Toggle code inlay hints if supported by lsp
 		if lsp_client and lsp_client:supports_method('textDocument/inlayHint', event.buf) then
-			set_lsp_keymap(
-				'<leader>th',
-				function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf })) end,
-				'[T]oggle Inlay [H]ints'
-			)
+			set_lsp_keymap('<leader>th', function()
+				vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
+			end, '[T]oggle Inlay [H]ints')
 		end
 
 		-- Enable highlighting references to the word under the cursor if supported by lsp

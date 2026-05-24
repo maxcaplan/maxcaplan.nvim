@@ -15,7 +15,9 @@ local blink = require('blink.cmp')
 
 ---Get an icon for an item draw context
 ---@param ctx blink.cmp.DrawItemContext
-local function get_item_icon(ctx) return MiniIcons.get('lsp', ctx.kind) end
+local function get_item_icon(ctx)
+	return MiniIcons.get('lsp', ctx.kind)
+end
 
 blink.setup({
 	keymap = { preset = 'super-tab' },

@@ -13,7 +13,9 @@ end
 
 vim.pack.add(plugins)
 
-if not MiniIcons then require('mini.icons').setup() end
+if not MiniIcons then
+	require('mini.icons').setup()
+end
 
 MiniIcons.mock_nvim_web_devicons()
 
@@ -40,34 +42,21 @@ vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' }
 vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
 vim.keymap.set('n', '<leader>sc', builtin.commands, { desc = '[S]earch [C]ommands' })
 vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
-vim.keymap.set(
-	'n',
-	'<leader>/',
-	function()
-		builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown({
-			winblend = 10,
-			previewer = false,
-		}))
-	end,
-	{ desc = '[/] Fuzzily search in current buffer' }
-)
-vim.keymap.set(
-	'n',
-	'<leader>s/',
-	function()
-		builtin.live_grep({
-			grep_open_files = true,
-			prompt_title = 'Live Grep in Open Files',
-		})
-	end,
-	{ desc = '[S]earch [/] in Open Files' }
-)
-vim.keymap.set(
-	'n',
-	'<leader>sn',
-	function() builtin.find_files({ cwd = vim.fn.stdpath('config') }) end,
-	{ desc = '[S]earch [N]eovim files' }
-)
+vim.keymap.set('n', '<leader>/', function()
+	builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown({
+		winblend = 10,
+		previewer = false,
+	}))
+end, { desc = '[/] Fuzzily search in current buffer' })
+vim.keymap.set('n', '<leader>s/', function()
+	builtin.live_grep({
+		grep_open_files = true,
+		prompt_title = 'Live Grep in Open Files',
+	})
+end, { desc = '[S]earch [/] in Open Files' })
+vim.keymap.set('n', '<leader>sn', function()
+	builtin.find_files({ cwd = vim.fn.stdpath('config') })
+end, { desc = '[S]earch [N]eovim files' })
 
 -- Add lsp keymaps when lsp attaches to a buffer
 vim.api.nvim_create_autocmd('LspAttach', {
