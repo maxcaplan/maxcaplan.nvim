@@ -20,7 +20,11 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
 		-- Toggle code inlay hints if supported by lsp
 		if lsp_client and lsp_client:supports_method('textDocument/inlayHint', event.buf) then
-			set_lsp_keymap('<leader>th', function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled( { bufnr = event.buf } )) end, '[T]oggle Inlay [H]ints')
+			set_lsp_keymap(
+				'<leader>th',
+				function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf })) end,
+				'[T]oggle Inlay [H]ints'
+			)
 		end
 
 		-- Enable highlighting references to the word under the cursor if supported by lsp
@@ -63,12 +67,12 @@ local lsp_server_configs = {
 }
 
 -- Get lsp configs folder
-local lsp_configs_dir_path = vim.fn.stdpath("config") .. "/lua/lsp/configs"
+local lsp_configs_dir_path = vim.fn.stdpath('config') .. '/lua/lsp/configs'
 
 -- Get lsp configurations from files
 if vim.fn.isdirectory(lsp_configs_dir_path) then
 	for _, file in ipairs(vim.fn.readdir(lsp_configs_dir_path)) do
-		if file:match("%.lua$") and file ~= "init.lua" then
+		if file:match('%.lua$') and file ~= 'init.lua' then
 			local server_name = vim.fn.fnamemodify(file, ':t:r')
 			local status, result = pcall(loadfile, lsp_configs_dir_path .. '/' .. file)
 
@@ -84,20 +88,18 @@ end
 local ensure_installed_servers = vim.tbl_keys(lsp_server_configs or {})
 
 -- Add LSP setup plugins
-vim.pack.add {
+vim.pack.add({
 	-- Quickstart LSP configs
 	'https://github.com/neovim/nvim-lspconfig',
 	-- LSP server package manager
 	'https://github.com/mason-org/mason.nvim',
 	-- Mason lspconfig intigration
 	'https://github.com/mason-org/mason-lspconfig.nvim',
-}
+})
 
 -- Setup mason
 require('mason').setup()
-require('mason-lspconfig').setup(
-	{ ensure_installed = ensure_installed_servers }
-)
+require('mason-lspconfig').setup({ ensure_installed = ensure_installed_servers })
 
 -- Enable and configure lsp servers
 for server_name, server_config in pairs(lsp_server_configs) do

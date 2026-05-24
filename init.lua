@@ -7,4 +7,3 @@ require('settings')
 require('pack')
 -- LSP configuration
 require('lsp')
-

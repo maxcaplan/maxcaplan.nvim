@@ -7,29 +7,27 @@ local plugins = {
 	{ src = 'https://github.com/nvim-telescope/telescope-ui-select.nvim' },
 }
 
-if vim.fn.executable 'make' == 1 then
+if vim.fn.executable('make') == 1 then
 	table.insert(plugins, 'https://github.com/nvim-telescope/telescope-fzf-native.nvim')
 end
 
 vim.pack.add(plugins)
 
-if not MiniIcons then
-	require('mini.icons').setup()
-end
+if not MiniIcons then require('mini.icons').setup() end
 
 MiniIcons.mock_nvim_web_devicons()
 
 require('telescope').setup({
 	extensions = {
-		['ui-select'] = { require('telescope.themes').get_dropdown() }
-	}
+		['ui-select'] = { require('telescope.themes').get_dropdown() },
+	},
 })
 
 pcall(require('telescope').load_extension, 'fzf')
 pcall(require('telescope').load_extension, 'ui-select')
 
 -- Keymaps
-local builtin = require 'telescope.builtin'
+local builtin = require('telescope.builtin')
 
 vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
 vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
@@ -46,10 +44,10 @@ vim.keymap.set(
 	'n',
 	'<leader>/',
 	function()
-		builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
+		builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown({
 			winblend = 10,
 			previewer = false,
-		})
+		}))
 	end,
 	{ desc = '[/] Fuzzily search in current buffer' }
 )
@@ -57,19 +55,17 @@ vim.keymap.set(
 	'n',
 	'<leader>s/',
 	function()
-		builtin.live_grep {
+		builtin.live_grep({
 			grep_open_files = true,
 			prompt_title = 'Live Grep in Open Files',
-		}
+		})
 	end,
 	{ desc = '[S]earch [/] in Open Files' }
 )
 vim.keymap.set(
 	'n',
 	'<leader>sn',
-	function()
-		builtin.find_files({ cwd = vim.fn.stdpath('config') })
-	end,
+	function() builtin.find_files({ cwd = vim.fn.stdpath('config') }) end,
 	{ desc = '[S]earch [N]eovim files' }
 )
 

@@ -4,6 +4,9 @@
 vim.o.number = true
 vim.o.relativenumber = true
 
+vim.o.shiftwidth = 2
+vim.o.tabstop = 4
+
 -- Enable mouse mode
 vim.o.mouse = 'a'
 
@@ -30,7 +33,7 @@ vim.o.signcolumn = 'yes'
 vim.o.updatetime = 250
 vim.o.timeoutlen = 300
 
--- Set how new splits are created 
+-- Set how new splits are created
 vim.o.splitright = true
 vim.o.splitbelow = true
 
