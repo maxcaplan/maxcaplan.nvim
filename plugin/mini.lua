@@ -33,12 +33,4 @@ notify.setup({
 	lsp_progress = {
 		enable = false,
 	},
-
-	window = {
-		config = {
-			anchor = 'NE',
-			relative = 'tabline',
-			row = 1,
-		},
-	},
 })
