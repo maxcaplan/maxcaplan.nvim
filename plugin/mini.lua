@@ -4,10 +4,14 @@ vim.pack.add({
 	{ src = 'https://github.com/nvim-mini/mini.nvim', version = 'stable' },
 })
 
+-- Icons
+
 if not MiniIcons then
 	require('mini.icons').setup()
 	MiniIcons.mock_nvim_web_devicons()
 end
+
+-- Statusline
 
 local statusline = require('mini.statusline')
 
@@ -20,3 +24,21 @@ statusline.setup({
 statusline.section_location = function()
 	return '%2l:%-2v'
 end
+
+-- Notify
+
+local notify = require('mini.notify')
+
+notify.setup({
+	lsp_progress = {
+		enable = false,
+	},
+
+	window = {
+		config = {
+			anchor = 'NE',
+			relative = 'tabline',
+			row = 1,
+		},
+	},
+})
