@@ -64,21 +64,18 @@ local lsp_server_configs = {
 	stylua = {},
 }
 
--- Get lsp configs folder
-local lsp_configs_dir_path = vim.fn.stdpath('config') .. '/lua/lsp/configs'
+local lsp_config_files = vim.api.nvim_get_runtime_file('lsp/*.lua', true)
 
 -- Get lsp configurations from files
-if vim.fn.isdirectory(lsp_configs_dir_path) then
-	for _, file in ipairs(vim.fn.readdir(lsp_configs_dir_path)) do
-		if file:match('%.lua$') and file ~= 'init.lua' then
-			local server_name = vim.fn.fnamemodify(file, ':t:r')
-			local status, result = pcall(loadfile, lsp_configs_dir_path .. '/' .. file)
+for _, file in ipairs(lsp_config_files) do
+	if file:match('%.lua$') and file ~= 'init.lua' then
+		local server_name = vim.fn.fnamemodify(file, ':t:r')
+		local status, result = pcall(loadfile, file)
 
-			if status then
-				lsp_server_configs[server_name] = result and result() or {}
-			else
-				vim.notify(tostring(result), vim.log.levels.ERROR)
-			end
+		if status then
+			lsp_server_configs[server_name] = result and result() or {}
+		else
+			vim.notify(tostring(result), vim.log.levels.ERROR)
 		end
 	end
 end
