@@ -24,13 +24,3 @@ statusline.setup({
 statusline.section_location = function()
 	return '%2l:%-2v'
 end
-
--- Notify
-
-local notify = require('mini.notify')
-
-notify.setup({
-	lsp_progress = {
-		enable = false,
-	},
-})

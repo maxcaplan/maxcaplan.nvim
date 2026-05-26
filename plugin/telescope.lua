@@ -15,9 +15,8 @@ vim.pack.add(plugins)
 
 if not MiniIcons then
 	require('mini.icons').setup()
+	MiniIcons.mock_nvim_web_devicons()
 end
-
-MiniIcons.mock_nvim_web_devicons()
 
 require('telescope').setup({
 	extensions = {
@@ -25,8 +24,10 @@ require('telescope').setup({
 	},
 })
 
+-- Load extensions
 pcall(require('telescope').load_extension, 'fzf')
 pcall(require('telescope').load_extension, 'ui-select')
+local notify_loaded, _ = pcall(require('telescope').load_extension, 'notify')
 
 -- Keymaps
 local builtin = require('telescope.builtin')
@@ -54,9 +55,10 @@ vim.keymap.set('n', '<leader>s/', function()
 		prompt_title = 'Live Grep in Open Files',
 	})
 end, { desc = '[S]earch [/] in Open Files' })
-vim.keymap.set('n', '<leader>sn', function()
-	builtin.find_files({ cwd = vim.fn.stdpath('config') })
-end, { desc = '[S]earch [N]eovim files' })
+
+if notify_loaded then
+	vim.keymap.set('n', '<leader>sn', '<cmd>Telescope notify<cr>', { desc = '[S]earch [N]otification History' })
+end
 
 -- Add lsp keymaps when lsp attaches to a buffer
 vim.api.nvim_create_autocmd('LspAttach', {
